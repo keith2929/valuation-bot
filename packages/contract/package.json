@@ -1,0 +1,20 @@
+{
+  "name": "@valuation-bot/contract",
+  "version": "0.0.1",
+  "private": true,
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "lint": "eslint .",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "rimraf": "^5.0.0"
+  }
+}

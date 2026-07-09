@@ -1,0 +1,7 @@
+packages:
+  - packages/contract
+  - packages/financial-statement-extract
+  - packages/adapter
+  - packages/valuation-creator
+  - packages/valuation-creator/core
+  - packages/valuation-creator/app

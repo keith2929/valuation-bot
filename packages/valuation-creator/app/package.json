@@ -1,0 +1,35 @@
+{
+  "name": "@valuation-bot/valuation-creator-app",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --project tsconfig.json && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "emit-static": "vite-node --script scripts/emitStatic.ts",
+    "lint": "eslint .",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@valuation-bot/contract": "workspace:*",
+    "@valuation-bot/valuation-creator": "workspace:*",
+    "@valuation-bot/valuation-creator-core": "workspace:*",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "recharts": "^3.9.2"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.1.0",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.0.0",
+    "vite": "^8.1.3",
+    "vite-node": "^2.1.9",
+    "vitest": "^2.1.9",
+    "rimraf": "^5.0.0"
+  }
+}
