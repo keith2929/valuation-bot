@@ -2,6 +2,7 @@ node_modules/
 dist/
 .env
 *.local
+.claude/settings.local.json
 *.tsbuildinfo
 *.tmp.*
 .goutputstream-*
