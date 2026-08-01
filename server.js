@@ -5,8 +5,10 @@
 // from the repo root on this vboxsf checkout (symlinks are disabled - see
 // .npmrc `symlink=false`), so the orchestrator's build output is required directly
 // by relative path, same workaround used elsewhere in this repo.
+require("dotenv").config();
+
 const http = require("http");
-const { fetchFinancials, orchestratorConfigFromEnv } = require("./packages/orchestrator/dist/index.js");
+const { fetchFinancials, resolveCompanyMeta, orchestratorConfigFromEnv } = require("./packages/orchestrator/dist/index.js");
 
 const PORT = process.env.PORT || 3001;
 
@@ -34,6 +36,23 @@ const server = http.createServer((req, res) => {
   }
 
   const financialsMatch = req.method === "GET" && url.pathname.match(/^\/api\/financials\/([^/]+)\/?$/);
+  const searchMatch = req.method === "GET" && url.pathname.match(/^\/api\/search\/([^/]+)\/?$/);
+
+  if (searchMatch) {
+    const ticker = decodeURIComponent(searchMatch[1]);
+    resolveCompanyMeta(ticker, { config: orchestratorConfigFromEnv() })
+      .then((result) => sendJson(res, 200, {
+        ticker: result.meta.ticker,
+        companyName: result.meta.companyName,
+        exchange: result.meta.exchange,
+        currency: result.meta.currency,
+      }))
+      .catch((error) => sendJson(res, 200, {
+        ticker, companyName: null, exchange: null, currency: null,
+        error: error instanceof Error ? error.message : String(error),
+      }));
+    return;
+  }
 
   if (financialsMatch) {
     const ticker = decodeURIComponent(financialsMatch[1]);
@@ -68,6 +87,7 @@ const server = http.createServer((req, res) => {
 if (require.main === module) {
   server.listen(PORT, () => {
     console.log(`Ingestion server listening on http://localhost:${PORT}`);
+    console.log(`  GET /api/search/:ticker`);
     console.log(`  GET /api/financials/:ticker`);
   });
 }

@@ -31,6 +31,9 @@ export default defineConfig({
     ],
   },
   server: {
+    host: process.env.VITE_DEV_HOST ?? "127.0.0.1",
+    port: process.env.VITE_DEV_PORT ? Number(process.env.VITE_DEV_PORT) : 4502,
+    strictPort: true,
     fs: {
       allow: [workspaceRoot],
     },

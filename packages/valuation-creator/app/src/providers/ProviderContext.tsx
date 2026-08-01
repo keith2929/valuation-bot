@@ -2,6 +2,7 @@ import { createContext, useContext, useMemo, type ReactNode } from "react";
 import type { MarketDataProvider } from "@valuation-bot/contract";
 import { FixtureProvider } from "@valuation-bot/valuation-creator";
 import { CachedMarketDataProvider } from "./CachedMarketDataProvider";
+import { LiveApiProvider } from "./LiveApiProvider";
 
 const ProviderContext = createContext<MarketDataProvider | undefined>(undefined);
 
@@ -17,7 +18,11 @@ export interface DataProviderProps {
 }
 
 export function DataProvider({ provider, children }: DataProviderProps) {
-  const value = useMemo(() => provider ?? new CachedMarketDataProvider(new FixtureProvider()), [provider]);
+  const value = useMemo(() => {
+    if (provider) return provider;
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "");
+    return new CachedMarketDataProvider(apiBaseUrl ? new LiveApiProvider(apiBaseUrl) : new FixtureProvider());
+  }, [provider]);
   return <ProviderContext.Provider value={value}>{children}</ProviderContext.Provider>;
 }
 

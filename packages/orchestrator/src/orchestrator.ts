@@ -138,6 +138,24 @@ async function runAdapter(
   return { fragments, errors };
 }
 
+/** Runs only an adapter's inexpensive identity lookup for ticker search. */
+async function runAdapterMeta(
+  adapter: SourceAdapter<AdapterConfig>,
+  ticker: string,
+  now: IsoDateTime,
+): Promise<{ fragments: AdapterFragment[]; errors: CanonicalError[] }> {
+  try {
+    const result = await adapter.resolveMeta(ticker);
+    if (isRateLimited(result)) {
+      const waited = result.retryAfterMs === null ? "" : ` (retry after ${result.retryAfterMs}ms)`;
+      return { fragments: [], errors: [orchestratorError(`Source "${adapter.name}" rate-limited resolveMeta${waited}; skipped.`, SOURCE_RATE_LIMITED_CODE, now)] };
+    }
+    return { fragments: [result], errors: [] };
+  } catch (error) {
+    return { fragments: [], errors: [orchestratorError(`Source "${adapter.name}" threw from resolveMeta: ${describeError(error)}`, SOURCE_FAILED_CODE, now)] };
+  }
+}
+
 /** Turns any thrown value into a short, safe description for an error note. */
 function describeError(error: unknown): string {
   if (error instanceof Error) return error.message;
@@ -260,4 +278,45 @@ export async function fetchFinancials(
     provenance: merged.provenance,
     errors: [...merged.errors, ...errors],
   };
+}
+
+/** Resolves company identity only; unlike `fetchFinancials`, never downloads statement data. */
+export async function resolveCompanyMeta(
+  ticker: string,
+  options: FetchFinancialsOptions = {},
+): Promise<CanonicalFinancialData> {
+  const now = options.now ?? new Date().toISOString();
+  const registrations = options.adapters ?? createDefaultAdapters(options.config);
+  const descriptors = options.descriptors ?? ORCHESTRATOR_MARKET_DESCRIPTORS;
+  let resolution: TickerResolution & { sources: SourceAdapter<AdapterConfig>[] };
+  try {
+    resolution = resolveTickerSources(ticker, registrations.map((registration) => registration.adapter), descriptors);
+  } catch (error) {
+    const empty = createEmptyCanonicalFinancialData();
+    empty.meta.ticker = ticker;
+    empty.meta.fetchTimestamp = now;
+    empty.errors = [orchestratorError(describeError(error), UNRESOLVED_MARKET_CODE, now)];
+    return empty;
+  }
+
+  const registrationByAdapter = new Map(registrations.map((registration) => [registration.adapter, registration]));
+  const ordered = [...resolution.sources].sort((a, b) => a.tier - b.tier);
+  const fragments: AdapterFragment[] = [];
+  const errors: CanonicalError[] = [];
+  if (ordered.length === 0) {
+    errors.push(orchestratorError(`No source adapter is registered for market "${resolution.market.id}".`, NO_ELIGIBLE_SOURCES_CODE, now));
+  }
+  for (const adapter of ordered) {
+    const registration = registrationByAdapter.get(adapter);
+    if (registration === undefined || !safeIsAvailable(registration)) {
+      errors.push(orchestratorError(`Source "${adapter.name}" is unavailable (missing credentials/config); skipped.`, SOURCE_UNAVAILABLE_CODE, now));
+      continue;
+    }
+    const outcome = await runAdapterMeta(adapter, resolution.normalizedTicker, now);
+    fragments.push(...outcome.fragments);
+    errors.push(...outcome.errors);
+  }
+  fragments.push(resolverIdentityFragment(resolution, now));
+  const merged = mergeFragments(fragments, { now });
+  return { meta: merged.meta, financials: merged.financials, provenance: merged.provenance, errors: [...merged.errors, ...errors] };
 }

@@ -36,6 +36,7 @@ export function CompanySearchView() {
           ))}
         </select>
         <button type="submit">Search</button>
+        <button type="button" onClick={() => void selectCompany("AAPL", "US")}>Load AAPL</button>
       </form>
 
       {state.status === "loading" && <p>Loading…</p>}

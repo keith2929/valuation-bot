@@ -5,7 +5,7 @@
       "name": "valuation-app-dev",
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "@valuation-bot/valuation-creator-app", "dev"],
-      "port": 5173
+      "port": 4502
     }
   ]
 }

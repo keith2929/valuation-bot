@@ -17,6 +17,7 @@ import {
 
 import {
   fetchFinancials,
+  resolveCompanyMeta,
   NO_ELIGIBLE_SOURCES_CODE,
   SOURCE_FAILED_CODE,
   SOURCE_RATE_LIMITED_CODE,
@@ -96,6 +97,24 @@ function reg(name: string, tier: number, handlers: Handlers = {}): AdapterRegist
 }
 
 describe("fetchFinancials", () => {
+  it("resolves metadata without calling fetchFinancials", async () => {
+    let financialFetches = 0;
+    const edgar = reg("edgar", 1, {
+      resolveMeta: () => metaFragment("edgar", 1, { companyName: "Apple", currency: "USD" }),
+      fetchFinancials: () => {
+        financialFetches += 1;
+        return revenueFragment("edgar", 1, 42);
+      },
+    });
+
+    const result = await resolveCompanyMeta("AAPL", { adapters: [edgar], now: NOW });
+
+    expect(result.meta.companyName).toBe("Apple");
+    expect(result.meta.ticker).toBe("AAPL");
+    expect(financialFetches).toBe(0);
+    expect(result.financials.incomeStatement.annual).toEqual([]);
+  });
+
   it("runs eligible adapters and merges their fragments into one canonical record", async () => {
     const edgar = reg("edgar", 1, {
       resolveMeta: () => metaFragment("edgar", 1, { companyName: "Apple", currency: "USD", currentPrice: 100 }),
