@@ -1,7 +1,18 @@
 packages:
   - packages/contract
+  - packages/canonical
   - packages/financial-statement-extract
   - packages/adapter
+  - packages/source-adapter
+  - packages/ticker-resolver
+  - packages/edgar-adapter
+  - packages/fmp-adapter
+  - packages/alphavantage-adapter
+  - packages/polygon-adapter
+  - packages/yfinance-adapter
+  - packages/html-adapter
+  - packages/merge-engine
+  - packages/orchestrator
   - packages/valuation-creator
   - packages/valuation-creator/core
   - packages/valuation-creator/app

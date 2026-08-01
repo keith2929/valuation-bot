@@ -34,6 +34,34 @@ importers:
         specifier: ^2.1.9
         version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
 
+  packages/alphavantage-adapter:
+    dependencies:
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+      '@valuation-bot/source-adapter':
+        specifier: workspace:*
+        version: link:../source-adapter
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  packages/canonical:
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+
   packages/contract:
     devDependencies:
       rimraf:
@@ -42,6 +70,25 @@ importers:
       typescript:
         specifier: ^5.0.0
         version: 5.9.3
+
+  packages/edgar-adapter:
+    dependencies:
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+      '@valuation-bot/source-adapter':
+        specifier: workspace:*
+        version: link:../source-adapter
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
 
   packages/financial-statement-extract:
     dependencies:
@@ -58,6 +105,160 @@ importers:
       typescript:
         specifier: ^5.0.0
         version: 5.9.3
+
+  packages/fmp-adapter:
+    dependencies:
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+      '@valuation-bot/source-adapter':
+        specifier: workspace:*
+        version: link:../source-adapter
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  packages/html-adapter:
+    dependencies:
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+      '@valuation-bot/source-adapter':
+        specifier: workspace:*
+        version: link:../source-adapter
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  packages/merge-engine:
+    dependencies:
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+      '@valuation-bot/source-adapter':
+        specifier: workspace:*
+        version: link:../source-adapter
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  packages/orchestrator:
+    dependencies:
+      '@valuation-bot/alphavantage-adapter':
+        specifier: workspace:*
+        version: link:../alphavantage-adapter
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+      '@valuation-bot/edgar-adapter':
+        specifier: workspace:*
+        version: link:../edgar-adapter
+      '@valuation-bot/fmp-adapter':
+        specifier: workspace:*
+        version: link:../fmp-adapter
+      '@valuation-bot/html-adapter':
+        specifier: workspace:*
+        version: link:../html-adapter
+      '@valuation-bot/merge-engine':
+        specifier: workspace:*
+        version: link:../merge-engine
+      '@valuation-bot/polygon-adapter':
+        specifier: workspace:*
+        version: link:../polygon-adapter
+      '@valuation-bot/source-adapter':
+        specifier: workspace:*
+        version: link:../source-adapter
+      '@valuation-bot/ticker-resolver':
+        specifier: workspace:*
+        version: link:../ticker-resolver
+      '@valuation-bot/yfinance-adapter':
+        specifier: workspace:*
+        version: link:../yfinance-adapter
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  packages/polygon-adapter:
+    dependencies:
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+      '@valuation-bot/source-adapter':
+        specifier: workspace:*
+        version: link:../source-adapter
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  packages/source-adapter:
+    dependencies:
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  packages/ticker-resolver:
+    dependencies:
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+      '@valuation-bot/source-adapter':
+        specifier: workspace:*
+        version: link:../source-adapter
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
 
   packages/valuation-creator:
     dependencies:
@@ -132,6 +333,25 @@ importers:
       '@valuation-bot/contract':
         specifier: workspace:*
         version: link:../../contract
+    devDependencies:
+      rimraf:
+        specifier: ^5.0.0
+        version: 5.0.10
+      typescript:
+        specifier: ^5.0.0
+        version: 5.9.3
+      vitest:
+        specifier: ^2.1.9
+        version: 2.1.9(@types/node@22.20.0)(jsdom@25.0.1)(lightningcss@1.32.0)
+
+  packages/yfinance-adapter:
+    dependencies:
+      '@valuation-bot/canonical':
+        specifier: workspace:*
+        version: link:../canonical
+      '@valuation-bot/source-adapter':
+        specifier: workspace:*
+        version: link:../source-adapter
     devDependencies:
       rimraf:
         specifier: ^5.0.0

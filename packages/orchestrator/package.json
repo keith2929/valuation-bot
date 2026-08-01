@@ -1,0 +1,36 @@
+{
+  "name": "@valuation-bot/orchestrator",
+  "version": "0.0.1",
+  "private": true,
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json",
+    "test": "vitest run",
+    "lint": "eslint .",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "@valuation-bot/canonical": "workspace:*",
+    "@valuation-bot/source-adapter": "workspace:*",
+    "@valuation-bot/ticker-resolver": "workspace:*",
+    "@valuation-bot/merge-engine": "workspace:*",
+    "@valuation-bot/edgar-adapter": "workspace:*",
+    "@valuation-bot/fmp-adapter": "workspace:*",
+    "@valuation-bot/alphavantage-adapter": "workspace:*",
+    "@valuation-bot/polygon-adapter": "workspace:*",
+    "@valuation-bot/yfinance-adapter": "workspace:*",
+    "@valuation-bot/html-adapter": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "rimraf": "^5.0.0",
+    "vitest": "^2.1.9"
+  }
+}

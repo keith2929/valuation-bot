@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "lib": ["ES2022"],
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDir": "src"
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../canonical" },
+    { "path": "../source-adapter" },
+    { "path": "../ticker-resolver" },
+    { "path": "../merge-engine" },
+    { "path": "../edgar-adapter" },
+    { "path": "../fmp-adapter" },
+    { "path": "../alphavantage-adapter" },
+    { "path": "../polygon-adapter" },
+    { "path": "../yfinance-adapter" }
+  ]
+}

@@ -1,0 +1,62 @@
+import type { FmpStatementRow } from "../../src/statements";
+
+/** Two annual balance-sheet rows; `shortTermInvestments` is intentionally omitted from every row to exercise MISSING_CONCEPT. */
+export const BALANCE_SHEET_ANNUAL: FmpStatementRow[] = [
+  {
+    date: "2022-09-24",
+    symbol: "TEST",
+    reportedCurrency: "USD",
+    fillingDate: "2022-10-28",
+    period: "FY",
+    cashAndCashEquivalents: 23646000000,
+    netReceivables: 60932000000,
+    inventory: 4946000000,
+    totalCurrentAssets: 135405000000,
+    propertyPlantEquipmentNet: 42117000000,
+    goodwill: 0,
+    totalAssets: 352755000000,
+    accountPayables: 64115000000,
+    shortTermDebt: 11128000000,
+    totalCurrentLiabilities: 153982000000,
+    longTermDebt: 98959000000,
+    totalLiabilities: 302083000000,
+    commonStock: 64849000000,
+    retainedEarnings: -3068000000,
+    totalStockholdersEquity: 50672000000,
+  },
+  {
+    date: "2023-09-30",
+    symbol: "TEST",
+    reportedCurrency: "USD",
+    fillingDate: "2023-11-03",
+    period: "FY",
+    cashAndCashEquivalents: 29965000000,
+    netReceivables: 60985000000,
+    inventory: 6331000000,
+    totalCurrentAssets: 143566000000,
+    propertyPlantEquipmentNet: 43715000000,
+    goodwill: 0,
+    totalAssets: 352583000000,
+    accountPayables: 62611000000,
+    shortTermDebt: 15807000000,
+    totalCurrentLiabilities: 145308000000,
+    longTermDebt: 95281000000,
+    totalLiabilities: 290437000000,
+    commonStock: 73812000000,
+    retainedEarnings: -214000000,
+    totalStockholdersEquity: 62146000000,
+  },
+];
+
+export const BALANCE_SHEET_QUARTERLY: FmpStatementRow[] = [
+  {
+    date: "2023-09-30",
+    symbol: "TEST",
+    reportedCurrency: "USD",
+    fillingDate: "2023-11-03",
+    period: "Q4",
+    cashAndCashEquivalents: 29965000000,
+    totalAssets: 352583000000,
+    totalLiabilities: 290437000000,
+  },
+];

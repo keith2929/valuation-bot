@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "valuation-app-dev",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "@valuation-bot/valuation-creator-app", "dev"],
+      "port": 5173
+    }
+  ]
+}
