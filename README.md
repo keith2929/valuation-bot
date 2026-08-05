@@ -1,4 +1,5 @@
-valuation-bot
+#valuation-bot
+
 A modular equity valuation pipeline that extracts financial data from multiple tiers of sources, normalizes them into a single schema, and runs DCF/DDM/comps valuations.
 
 Note: Early prototypes referenced a specific Excel workbook for formula validation, but that workbook is now deprecated. The focus has shifted entirely to the extraction layer and multi-source fallback.
