@@ -1,4 +1,4 @@
-#valuation-bot
+**#valuation-bot**
 
 A modular equity valuation pipeline that extracts financial data from multiple tiers of sources, normalizes them into a single schema, and runs DCF/DDM/comps valuations.
 
